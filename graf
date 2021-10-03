@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node{
+	char data;
+	struct Node *next;
+};
+typedef struct Node Simpul;
+
+void inisialisasi(Simpul **T) {
+	*T = NULL;
+}
+
+Simpul *simpulBaru(char item) {
+	Simpul *n;
+	n = (Simpul*) malloc(sizeof(Simpul));
+	if(n != NULL) {
+		n->data = item;
+		n->next = NULL;
+	}
+	return n;
+}
+
+int isEmpty(Simpul *T){
+	return (T == NULL);
+}
+
+void tambahSimpul (Simpul **p, char item){
+	Simpul *n;
+	n = simpulBaru (item);
+	*p = n;
+}
+
+int main(){
+	Simpul *graph[5];
+	char graf[5] = {'a', 'b', 'c', 'd', 'e'};
+	int x[5][5] = {
+		0, 1, 0, 1, 0,
+		0, 0, 1, 0, 1, 
+		0, 0, 0, 0, 0, 
+		0, 1, 0, 0, 1,
+		0, 0, 1, 0, 0
+	};
+	int i, j;
+	//Menampilkan Graf
+	printf("Graf = ");
+	for(i=0; i<5; i++){
+		printf("%c ", graf[i]);
+	}
+	//Menampilkan Simpul yang Terhubung
+	for (i=0; i<5;i++){
+		printf ("\nSimpul %c terhubung dengan:", graf[i]);
+		// j = 0
+		j=0;
+		tambahSimpul(&graph[i], x[i][j]);
+		if (graph[i]->data==1){
+			printf(" -> %c", graf[j]);
+		}
+		else{
+			printf(NULL);
+		}
+		// j = 1
+		j++;
+		tambahSimpul(&graph[i]->next, x[i][j]);
+		if (graph[i]->next->data==1){
+			printf(" -> %c", graf[j]);
+		}
+		else{
+			printf(NULL);
+		}
+		// j = 2
+		j++;
+		tambahSimpul(&graph[i]->next->next, x[i][j]);
+		if (graph[i]->next->next->data==1){
+			printf(" -> %c", graf[j]);
+		}
+		else{
+			printf(NULL);
+		}
+		// j = 3
+		j++;
+		tambahSimpul(&graph[i]->next->next->next, x[i][j]);
+		if (graph[i]->next->next->next->data==1){
+			printf(" -> %c", graf[j]);
+		}
+		else{
+			printf(NULL);
+		}
+		// j = 4
+		j++;
+		tambahSimpul(&graph[i]->next->next->next->next, x[i][j]);
+		if (graph[i]->next->next->next->next->data==1){
+			printf(" -> %c", graf[j]);
+		}
+		else{
+			printf(NULL);
+		}
+	}
+}
